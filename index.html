@@ -753,6 +753,108 @@
   /* ── ACTIVE NAV ── */
   .nav-links a.active { color: var(--accent2); }
 
+  /* ── VOLUNTEER SUB-LABELS ── */
+  .vol-sub-label {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.06em;
+    margin-bottom: 1.2rem;
+    margin-top: 2.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .vol-sub-label:first-of-type { margin-top: 0; }
+
+  /* ── VOLUNTEER PHOTO SLOTS ── */
+  .vol-photo-slot {
+    width: 100%; aspect-ratio: 16/9;
+    border-radius: 10px 10px 0 0;
+    margin: -1.5rem -1.5rem 1rem -1.5rem;
+    width: calc(100% + 3rem);
+    overflow: hidden;
+    background: var(--surface2);
+    display: none;
+  }
+  .vol-photo-slot.has-photo {
+    display: block;
+  }
+  .vol-photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  .achieve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .achieve-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .achieve-card:hover { transform: translateY(-2px); }
+  .achieve-card.trophy:hover { border-color: var(--amber); }
+  .achieve-card.cert:hover { border-color: var(--accent); }
+
+  .achieve-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .achieve-card.trophy .achieve-icon { background: rgba(251,191,36,0.12); }
+  .achieve-card.cert .achieve-icon { background: rgba(124,109,250,0.12); }
+
+  .achieve-body { flex: 1; min-width: 0; }
+
+  .achieve-type {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .achieve-card.trophy .achieve-type { color: var(--amber); }
+  .achieve-card.cert .achieve-type { color: var(--accent2); }
+
+  .achieve-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+
+  .achieve-card p {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 0.4rem;
+  }
+
+  .achieve-date {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 768px) {
+    .achieve-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── FOOTER EDUCATION LOGOS ── */
   .footer-edu {
     display: flex;
@@ -1029,7 +1131,8 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#volunteer">Volunteer</a></li>
+    <li><a href="#volunteer">Leadership</a></li>
+    <li><a href="#achievements">Achievements</a></li>
     <li><a href="#video">Video</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -1260,11 +1363,33 @@
     </div>
 
     <div class="timeline-item">
+      <div class="timeline-period">2024 – Present</div>
+      <div class="timeline-title">Founder &amp; Developer</div>
+      <div class="timeline-company">ReSole — AI-Powered Bundle OS</div>
+      <div class="timeline-desc">
+        Building an AI-powered operating system for bundle and thrift businesses — unifying inventory, orders, customers, and smart automation in one SaaS platform. Full-stack development with React, Supabase, and PostgreSQL.
+      </div>
+    </div>
+
+    <div class="timeline-item">
       <div class="timeline-period">2022 – Present</div>
       <div class="timeline-title">Founder &amp; Operator</div>
       <div class="timeline-company">KimieBundle — Preloved Footwear Business, Malaysia</div>
       <div class="timeline-desc">
         Self-managed reselling business for bundle and preloved shoes, handling product sourcing, pricing, customer service, and logistics across Peninsular Malaysia.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-period">2020 – 2021</div>
+      <div class="timeline-title">Cashier, Delivery, Pizza Maker &amp; Management</div>
+      <div class="timeline-company">Pizza Hut Sdn Bhd — Seri Iskandar, Malaysia</div>
+      <div class="timeline-desc">
+        <ul>
+          <li>Managed point-of-sale operations and daily sales reconciliation</li>
+          <li>Coordinated inventory management and supply ordering</li>
+          <li>Performed delivery services while maintaining quality control standards</li>
+        </ul>
       </div>
     </div>
 
@@ -1275,36 +1400,95 @@
 
 <!-- VOLUNTEER -->
 <section id="volunteer">
-  <div class="section-label">Volunteer work</div>
+  <div class="section-label">Leadership &amp; Activities</div>
   <h2 class="section-title fade-in">Giving back</h2>
+
+  <div class="vol-sub-label fade-in">Leadership Roles</div>
   <div class="vol-grid fade-in">
 
     <div class="vol-card">
+      <div class="vol-photo-slot" data-photo="photos/mpp-uthm.jpg"></div>
       <span class="vol-badge">MPP UTHM</span>
-      <h3>Karnival Gegar Hussein — KBS Open Day 2026</h3>
-      <div class="vol-org">MPP UTHM — Creative &amp; Media Team</div>
-      <p class="vol-desc">Designed Instagram story templates and promotional graphics for the university's open day carnival. Handled event visual identity and social media content creation.</p>
+      <h3>EXCO Sports Recreation &amp; Culture</h3>
+      <div class="vol-org">Student Representative Council UTHM · 2023 – 2024</div>
+      <p class="vol-desc">Managed welfare and development programs for university athletes while organizing sports-related activities and initiatives for the UTHM student body.</p>
     </div>
 
     <div class="vol-card">
-      <span class="vol-badge">Community</span>
-      <h3>Event Photography &amp; Documentation</h3>
-      <div class="vol-org">UTHM Campus Events</div>
-      <p class="vol-desc">Volunteered as photographer and content creator for campus events, producing photo galleries and recap videos for institutional use.</p>
+      <div class="vol-photo-slot" data-photo="photos/it-club.jpg"></div>
+      <span class="vol-badge">FSKTM</span>
+      <h3>President — IT Club</h3>
+      <div class="vol-org">Faculty of Computer Science &amp; IT, UTHM · 2021 – 2022</div>
+      <p class="vol-desc">Led the IT Club in organizing faculty programs and events while assisting lecturers in managing student affairs during course registration periods.</p>
     </div>
 
     <div class="vol-card">
+      <div class="vol-photo-slot" data-photo="photos/enactus.jpg"></div>
+      <span class="vol-badge">Entrepreneurship</span>
+      <h3>Vice President 2 — Enactus Club</h3>
+      <div class="vol-org">Pusat Teknousahawan UTHM · 2023</div>
+      <p class="vol-desc">Planned and organized programs focusing on business development and student entrepreneurship initiatives to cultivate entrepreneurial mindset among students.</p>
+    </div>
+
+    <div class="vol-card">
+      <div class="vol-photo-slot" data-photo="photos/dpm-speaker.jpg"></div>
+      <span class="vol-badge">Governance</span>
+      <h3>Speaker — Dewan Perwakilan Mahasiswa</h3>
+      <div class="vol-org">Appointed by Vice Chancellor of UTHM · Jan – Dec 2023</div>
+      <p class="vol-desc">Represented student voice in university governance, appointed by the Vice Chancellor to the student assembly for the full academic year.</p>
+    </div>
+
+  </div>
+
+  <div class="vol-sub-label fade-in">Activities &amp; Volunteering</div>
+  <div class="vol-grid fade-in">
+
+    <div class="vol-card">
+      <div class="vol-photo-slot" data-photo="photos/cydes.jpg"></div>
+      <span class="vol-badge">Cybersecurity</span>
+      <h3>Hall Manager — CYDES 2025</h3>
+      <div class="vol-org">Cyber Defence &amp; Security Exhibition · July 2025</div>
+      <p class="vol-desc">Coordinated venue logistics and managed exhibition hall operations for the prestigious national cybersecurity conference.</p>
+    </div>
+
+    <div class="vol-card">
+      <div class="vol-photo-slot" data-photo="photos/sukan-antara-fakulti.jpg"></div>
+      <span class="vol-badge">Sports</span>
+      <h3>Director — Sukan Antara Fakulti 2023</h3>
+      <div class="vol-org">UTHM Inter-Faculty Sports · November 2023</div>
+      <p class="vol-desc">Led the planning and execution of inter-faculty sports competition at university level.</p>
+    </div>
+
+    <div class="vol-card">
+      <div class="vol-photo-slot" data-photo="photos/anugerah-dekan.jpg"></div>
       <span class="vol-badge">Academic</span>
-      <h3>PSM Exhibition Booth — Faculty Tech Day</h3>
-      <div class="vol-org">FSKTM, UTHM</div>
-      <p class="vol-desc">Presented KimieBundle Ez-Shop at the faculty technology exhibition, demonstrating the live app, admin panel, and QR download flow to lecturers, peers, and guests.</p>
+      <h3>Director — Majlis Anugerah Dekan FSKTM</h3>
+      <div class="vol-org">FSKTM, UTHM · December 2022</div>
+      <p class="vol-desc">Organized the Dean's Award Ceremony for the Faculty of Computer Science and Information Technology.</p>
     </div>
 
     <div class="vol-card">
-      <span class="vol-badge">Peer Support</span>
-      <h3>Technical Peer Support</h3>
-      <div class="vol-org">UTHM Student Community</div>
-      <p class="vol-desc">Assisted classmates with React Native, Firebase, and mobile development — from setup to debugging — sharing experience from the KimieBundle capstone project.</p>
+      <div class="vol-photo-slot" data-photo="photos/masum.jpg"></div>
+      <span class="vol-badge">National</span>
+      <h3>Volunteer — MASUM 2023</h3>
+      <div class="vol-org">Majlis Sukan Universiti Malaysia · August 2023</div>
+      <p class="vol-desc">Provided support services for the national university sports event held at UTHM.</p>
+    </div>
+
+    <div class="vol-card">
+      <div class="vol-photo-slot" data-photo="photos/flood-relief.jpg"></div>
+      <span class="vol-badge">Humanitarian</span>
+      <h3>Flood Relief Volunteer</h3>
+      <div class="vol-org">Temporary Evacuation Centre · March 2023</div>
+      <p class="vol-desc">Participated in humanitarian aid distribution and relief efforts during flood disaster.</p>
+    </div>
+
+    <div class="vol-card">
+      <div class="vol-photo-slot" data-photo="photos/pemuda-gema.jpg"></div>
+      <span class="vol-badge">Community</span>
+      <h3>Committee — Pemuda Gema Malaysia</h3>
+      <div class="vol-org">National Youth Organization · July 2025</div>
+      <p class="vol-desc">Actively contributed to youth engagement initiatives and community development programs under the national youth organization.</p>
     </div>
 
   </div>
@@ -1363,6 +1547,67 @@
       <div class="video-info">
         <h3>KimieBundle Product Reel</h3>
         <p>Social media product showcase reel for the KimieBundle reselling business.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">Achievements &amp; Certificates</div>
+  <h2 class="section-title fade-in">Recognition</h2>
+  <div class="achieve-grid fade-in">
+
+    <div class="achieve-card trophy">
+      <div class="achieve-icon">🏆</div>
+      <div class="achieve-body">
+        <div class="achieve-type">Competition · 1st Place</div>
+        <h3>Pidato Kemerdekaan</h3>
+        <p>Champion of Independence Day Speech Competition organized by Student Representatives Council.</p>
+        <div class="achieve-date">October 2021</div>
+      </div>
+    </div>
+
+    <div class="achieve-card trophy">
+      <div class="achieve-icon">🏅</div>
+      <div class="achieve-body">
+        <div class="achieve-type">Competition · 5th Place</div>
+        <h3>Poster Pengiklanan Konsisma</h3>
+        <p>Achieved recognition in advertising poster design competition organized by Majlis Amanah Rakyat (MARA).</p>
+        <div class="achieve-date">MARA</div>
+      </div>
+    </div>
+
+    <div class="achieve-card cert">
+      <div class="achieve-icon">📜</div>
+      <div class="achieve-body">
+        <div class="achieve-type">Certificate</div>
+        <h3>IT &amp; Web Development Professional</h3>
+        <p>Certified by MOHE-MDEC for demonstrating professional competency in IT and web development technologies.</p>
+        <div class="achieve-date">May 2024</div>
+      </div>
+    </div>
+
+    <div class="achieve-card cert">
+      <div class="achieve-icon">🔒</div>
+      <div class="achieve-body">
+        <div class="achieve-type">Certificate</div>
+        <h3>Security Analyst</h3>
+        <p>Recognized by Ministry of Communication and Digital for proficiency in security analysis and threat assessment.</p>
+        <div class="achieve-date">December 2021</div>
+      </div>
+    </div>
+
+    <div class="achieve-card cert">
+      <div class="achieve-icon">🛡️</div>
+      <div class="achieve-body">
+        <div class="achieve-type">Certificate</div>
+        <h3>Cybersecurity Essential</h3>
+        <p>Awarded by Ministry of Communication and Digital for completing comprehensive cybersecurity fundamentals training.</p>
+        <div class="achieve-date">August 2020</div>
       </div>
     </div>
 
@@ -1534,6 +1779,9 @@
 
     // Video cards → scale up + fade
     stagger(document.querySelectorAll('.video-card'), 'scale', 0.08);
+
+    // Achievement cards → cascade up
+    stagger(document.querySelectorAll('.achieve-grid .achieve-card'), 'up', 0.08);
 
     // Resume block → up
     document.querySelectorAll('.resume-section').forEach(el => setAnim(el, 'up', 0));
@@ -1735,6 +1983,31 @@
       if (!isHttp) { link.style.display = ''; return; } // local preview: just show it
       fetch(link.getAttribute('data-video'), { method: 'HEAD' })
         .then(r => { if (r.ok) link.style.display = ''; })
+        .catch(() => {});
+    });
+  })();
+</script>
+
+<script>
+  /* Volunteer photo slots — auto-reveal when the image file exists */
+  (function () {
+    const slots = document.querySelectorAll('.vol-photo-slot[data-photo]');
+    if (!slots.length) return;
+    const isHttp = location.protocol === 'http:' || location.protocol === 'https:';
+
+    slots.forEach(slot => {
+      const src = slot.getAttribute('data-photo');
+      const show = () => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = slot.closest('.vol-card').querySelector('h3').textContent;
+        img.loading = 'lazy';
+        slot.appendChild(img);
+        slot.classList.add('has-photo');
+      };
+      if (!isHttp) { show(); return; }
+      fetch(src, { method: 'HEAD' })
+        .then(r => { if (r.ok) show(); })
         .catch(() => {});
     });
   })();
