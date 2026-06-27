@@ -774,6 +774,46 @@
     .footer-edu { flex-wrap: wrap; gap: 0.6rem; }
   }
 
+  /* ── PROJECT DEMO VIDEO (click-to-play lightbox) ── */
+  .demo-link { cursor: pointer; }
+  .demo-link[data-video] { display: none; } /* JS reveals it only when the video file exists */
+
+  .video-modal {
+    position: fixed; inset: 0; z-index: 10001;
+    display: none; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    background: rgba(5,5,10,0.86);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  }
+  .video-modal.open { display: flex; }
+
+  .video-modal-inner { position: relative; width: min(920px, 100%); }
+
+  .video-modal video {
+    width: 100%; display: block;
+    border-radius: var(--radius);
+    border: 1px solid var(--border2);
+    background: #000;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.6);
+  }
+
+  .video-modal-title {
+    font-family: var(--mono);
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent2); margin-bottom: 0.75rem;
+  }
+
+  .video-modal-close {
+    position: absolute; top: -2.8rem; right: 0;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--border2); background: var(--surface);
+    color: var(--text); font-size: 1rem; line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .video-modal-close:hover { border-color: var(--accent); background: var(--surface2); }
+
   /* ════════════════════════════════════════════════════════
      ENHANCEMENTS (added on top — no existing rules changed)
      ════════════════════════════════════════════════════════ */
@@ -1142,6 +1182,7 @@
         <span class="pill">React Native</span><span class="pill">Expo</span><span class="pill">Firebase</span><span class="pill">Gemini API</span><span class="pill">React.js</span>
       </div>
       <div class="project-links">
+        <a class="project-link demo-link" href="#" data-video="videos/kimiebundle.mp4" data-title="KimieBundle Ez-Shop — Demo">▶ Watch demo</a>
         <a class="project-link" href="https://kimiebundle-admin.vercel.app/login" target="_blank" rel="noopener">Live Demo →</a>
       </div>
     </div>
@@ -1154,6 +1195,7 @@
         <span class="pill">JavaScript</span><span class="pill">React</span><span class="pill">Supabase</span><span class="pill">PostgreSQL</span><span class="pill">AI</span>
       </div>
       <div class="project-links">
+        <a class="project-link demo-link" href="#" data-video="videos/resole.mp4" data-title="ReSole — AI Bundle OS Demo">▶ Watch demo</a>
         <span class="project-link" style="color:var(--muted);cursor:default;">Private · In development</span>
       </div>
     </div>
@@ -1166,6 +1208,7 @@
         <span class="pill">TypeScript</span><span class="pill">JavaScript</span><span class="pill">CSS</span><span class="pill">Vercel</span>
       </div>
       <div class="project-links">
+        <a class="project-link demo-link" href="#" data-video="videos/registerup.mp4" data-title="RegisterUp — Demo">▶ Watch demo</a>
         <a class="project-link" href="https://github.com/lukeharith/registerup" target="_blank" rel="noopener">GitHub →</a>
         <a class="project-link" href="https://registerup.vercel.app" target="_blank" rel="noopener">Live Demo →</a>
       </div>
@@ -1634,6 +1677,66 @@
       toast.style.transform = 'translateX(-50%) translateY(20px)';
       setTimeout(() => toast.remove(), 500);
     }, 5000);
+  })();
+</script>
+
+<script>
+  /* Project demo video — self-hosted MP4, click-to-play lightbox */
+  (function () {
+    const demoLinks = Array.from(document.querySelectorAll('.demo-link[data-video]'));
+    if (!demoLinks.length) return;
+
+    // Build the modal once
+    const modal = document.createElement('div');
+    modal.className = 'video-modal';
+    modal.innerHTML =
+      '<div class="video-modal-inner">' +
+        '<button class="video-modal-close" type="button" aria-label="Close">✕</button>' +
+        '<div class="video-modal-title"></div>' +
+        '<video controls playsinline preload="metadata"></video>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    const video = modal.querySelector('video');
+    const titleEl = modal.querySelector('.video-modal-title');
+    const closeBtn = modal.querySelector('.video-modal-close');
+
+    const open = (src, title) => {
+      video.src = src;
+      titleEl.textContent = title || '';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      video.play().catch(() => {});
+    };
+    const close = () => {
+      modal.classList.remove('open');
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+      document.body.style.overflow = '';
+    };
+
+    demoLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        open(link.getAttribute('data-video'), link.getAttribute('data-title'));
+      });
+    });
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) close();
+    });
+
+    // Reveal each "Watch demo" button only when its video file actually exists,
+    // so the live site never shows a button that leads to a missing video.
+    const isHttp = location.protocol === 'http:' || location.protocol === 'https:';
+    demoLinks.forEach(link => {
+      if (!isHttp) { link.style.display = ''; return; } // local preview: just show it
+      fetch(link.getAttribute('data-video'), { method: 'HEAD' })
+        .then(r => { if (r.ok) link.style.display = ''; })
+        .catch(() => {});
+    });
   })();
 </script>
 
