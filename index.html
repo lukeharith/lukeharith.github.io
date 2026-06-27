@@ -1502,7 +1502,7 @@
   <h2 class="section-title fade-in">Creative work</h2>
   <div class="video-grid fade-in">
 
-    <div class="video-card">
+    <div class="video-card video-playable" data-video="videos/kimiebundle-promo.mp4" data-title="KimieBundle — Canva Promo Video">
       <div class="video-thumb">
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1e1e2a,#0f0f1a);display:flex;align-items:center;justify-content:center;">
           <span style="font-size:2.5rem;opacity:0.35;">🎓</span>
@@ -1929,10 +1929,11 @@
 </script>
 
 <script>
-  /* Project demo video — self-hosted MP4, click-to-play lightbox */
+  /* Video lightbox — shared by project demos + video editing cards */
   (function () {
     const demoLinks = Array.from(document.querySelectorAll('.demo-link[data-video]'));
-    if (!demoLinks.length) return;
+    const playableCards = Array.from(document.querySelectorAll('.video-playable[data-video]'));
+    if (!demoLinks.length && !playableCards.length) return;
 
     // Build the modal once
     const modal = document.createElement('div');
@@ -1970,6 +1971,14 @@
         open(link.getAttribute('data-video'), link.getAttribute('data-title'));
       });
     });
+    // Video editing section cards (click anywhere on the card to play)
+    playableCards.forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        open(card.getAttribute('data-video'), card.getAttribute('data-title'));
+      });
+    });
+
     closeBtn.addEventListener('click', close);
     modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
     document.addEventListener('keydown', (e) => {
